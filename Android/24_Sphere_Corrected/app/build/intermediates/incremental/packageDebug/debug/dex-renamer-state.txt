@@ -1,0 +1,4 @@
+#Sun Mar 25 18:43:10 IST 2018
+base.0=C\:\\My_Android_Projects_on_OP5\\24_Sphere_Corrected\\app\\build\\intermediates\\transforms\\dexMerger\\debug\\0
+path.0=classes.dex
+renamed.0=classes.dex

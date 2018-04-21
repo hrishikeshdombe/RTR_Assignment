@@ -1,0 +1,4 @@
+#Sat Mar 17 17:10:10 IST 2018
+base.0=C\:\\My_Android_Projects_on_OP5\\16-Phong_Light_On_Sphere_Toggle_Shader\\app\\build\\intermediates\\transforms\\dex\\release\\0
+path.0=classes.dex
+renamed.0=classes.dex
