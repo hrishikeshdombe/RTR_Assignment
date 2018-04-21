@@ -1,0 +1,3 @@
+Log File Created Successfully...
+GL_FALSE
+Log File Closed Successfully
