@@ -77,7 +77,7 @@ int main(int argc, const char * argv[])
 							 backing:NSBackingStoreBuffered 
 							 defer:NO];
 
-	[window setTitle:@"MacOS : 2 2D Shapes Black And White Triangle"];
+	[window setTitle:@"MacOS : 2 2D Shapes"];
 	[window center];
 
 	glView=[[GLView alloc]initWithFrame:win_rect];
