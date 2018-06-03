@@ -1,0 +1,4 @@
+#Mon Jan 08 11:28:50 IST 2018
+base.0=C\:\\My_Android_Projects\\03-Landscape_Window_With_Gestures\\app\\build\\intermediates\\transforms\\dexMerger\\debug\\0
+path.0=classes.dex
+renamed.0=classes.dex

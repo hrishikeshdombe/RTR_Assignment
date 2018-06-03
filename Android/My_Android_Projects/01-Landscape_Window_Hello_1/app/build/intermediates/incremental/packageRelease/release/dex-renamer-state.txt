@@ -1,0 +1,4 @@
+#Fri Jan 05 20:59:56 IST 2018
+base.0=C\:\\My_Android_Projects\\01-Landscape_Window_Hello_1\\app\\build\\intermediates\\transforms\\dex\\release\\0
+path.0=classes.dex
+renamed.0=classes.dex

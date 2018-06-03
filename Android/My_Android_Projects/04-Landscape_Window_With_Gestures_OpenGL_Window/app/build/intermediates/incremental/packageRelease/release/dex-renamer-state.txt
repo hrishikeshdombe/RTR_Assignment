@@ -1,0 +1,4 @@
+#Wed Jan 10 04:24:05 IST 2018
+base.0=C\:\\My_Android_Projects\\04-Landscape_Window_With_Gestures_OpenGL_Window\\app\\build\\intermediates\\transforms\\dex\\release\\0
+path.0=classes.dex
+renamed.0=classes.dex

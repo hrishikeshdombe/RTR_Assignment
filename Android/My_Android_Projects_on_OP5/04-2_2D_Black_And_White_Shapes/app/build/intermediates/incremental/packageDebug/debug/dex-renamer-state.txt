@@ -1,0 +1,4 @@
+#Sat Mar 10 21:10:28 IST 2018
+base.0=C\:\\My_Android_Projects_on_OP5\\04-2_2D_Black_And_White_Shapes\\app\\build\\intermediates\\transforms\\dexMerger\\debug\\0
+path.0=classes.dex
+renamed.0=classes.dex

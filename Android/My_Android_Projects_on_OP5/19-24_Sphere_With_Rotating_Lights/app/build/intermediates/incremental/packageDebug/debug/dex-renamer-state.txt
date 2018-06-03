@@ -1,0 +1,4 @@
+#Mon Mar 12 21:43:56 IST 2018
+base.0=C\:\\My_Android_Projects_on_OP5\\19-24_Sphere_With_Rotating_Lights\\app\\build\\intermediates\\transforms\\dexMerger\\debug\\0
+path.0=classes.dex
+renamed.0=classes.dex

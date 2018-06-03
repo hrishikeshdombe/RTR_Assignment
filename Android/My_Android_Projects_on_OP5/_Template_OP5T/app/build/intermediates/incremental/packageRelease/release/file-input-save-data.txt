@@ -1,0 +1,7 @@
+#Internal package file, do not edit.
+#Mon Feb 05 13:23:25 IST 2018
+0.baseType=DIRECTORY
+0.base=C\:\\My_Android_Projects_on_OP5\\Template_OP5T\\app\\build\\intermediates\\transforms\\dex\\release\\0
+0.path=classes.dex
+0.set=DEX
+count=1

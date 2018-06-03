@@ -1,0 +1,4 @@
+#Sat Mar 10 21:11:48 IST 2018
+base.0=C\:\\My_Android_Projects_on_OP5\\05-2_2D_Colored_Shapes\\app\\build\\intermediates\\transforms\\dex\\release\\0
+path.0=classes.dex
+renamed.0=classes.dex

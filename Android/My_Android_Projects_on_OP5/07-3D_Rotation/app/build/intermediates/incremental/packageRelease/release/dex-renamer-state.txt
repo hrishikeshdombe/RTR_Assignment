@@ -1,0 +1,4 @@
+#Sat Mar 10 21:14:43 IST 2018
+base.0=C\:\\My_Android_Projects_on_OP5\\07-3D_Rotation\\app\\build\\intermediates\\transforms\\dex\\release\\0
+path.0=classes.dex
+renamed.0=classes.dex

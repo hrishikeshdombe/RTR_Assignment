@@ -1,0 +1,7 @@
+#Internal package file, do not edit.
+#Sun Jan 28 15:16:32 IST 2018
+0.baseType=DIRECTORY
+0.base=C\:\\My_Android_Projects\\05-Orthographics_Triangle\\app\\build\\intermediates\\transforms\\dexMerger\\debug\\0
+0.path=classes.dex
+0.set=DEX
+count=1

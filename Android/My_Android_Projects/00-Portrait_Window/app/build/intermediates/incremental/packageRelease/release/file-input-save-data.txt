@@ -1,0 +1,7 @@
+#Internal package file, do not edit.
+#Fri Jan 05 15:05:17 IST 2018
+0.baseType=DIRECTORY
+0.base=C\:\\My_Android_Projects\\00-Portrait_Window\\app\\build\\intermediates\\transforms\\dex\\release\\0
+0.path=classes.dex
+0.set=DEX
+count=1
