@@ -249,7 +249,7 @@ int main(int argc, const char * argv[])
 	"out vec4 FragColor;" \
 	"void main(void)" \
 	"{" \
-	"vec3 tex = vec3(texture(out_texture0_coord,u_texture0_sampler));" \
+	"vec3 tex = vec3(texture(u_texture0_sampler,out_texture0_coord));" \
 	"FragColor = vec4(tex,1.0f);" \
 	"}";
 
@@ -391,8 +391,8 @@ int main(int argc, const char * argv[])
 	int w = (int)CGImageGetWidth(cgImage);
 	int h = (int)CGImageGetHeight(cgImage);
 
-	CGDataRef imageData = CGDataProviderCopyData(CGImageGetDataProvider(cgImage));
-	void *pixels = (void *)CGDataGetBytePtr(imageData);
+	CFDataRef imageData = CGDataProviderCopyData(CGImageGetDataProvider(cgImage));
+	void *pixels = (void *)CFDataGetBytePtr(imageData);
 
 	GLuint bmpTexture;
 	glGenTextures(1,&bmpTexture);

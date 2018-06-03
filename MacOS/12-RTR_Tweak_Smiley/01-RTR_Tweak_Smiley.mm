@@ -133,7 +133,7 @@ int main(int argc, const char * argv[])
 	GLuint texture_sampler_uniform;
 	GLuint tweak_flag_uniform;
 
-	int iTweak_Smiley_Flag = 0;
+	int iTweak_Smiley_Flag;
 }
 
 -(id)initWithFrame:(NSRect)frame;
@@ -255,7 +255,7 @@ int main(int argc, const char * argv[])
 	"{" \
 	"if(tweak_flag == 0)" \
 	"{" \
-	"vec3 tex = vec3(texture(out_texture0_coord,u_texture0_sampler));" \
+	"vec3 tex = vec3(texture(u_texture0_sampler,out_texture0_coord));" \
 	"FragColor = vec4(tex,1.0f);" \
 	"}" \
 	"else" \
@@ -366,6 +366,8 @@ int main(int argc, const char * argv[])
 
 	glClearColor(1.0f,1.0f,1.0f,0.0f);
 
+	iTweak_Smiley_Flag = 0;
+
 	perspectiveProjectionMatrix = vmath::mat4::identity();
 
 	CVDisplayLinkCreateWithActiveCGDisplays(&displayLink);
@@ -396,8 +398,8 @@ int main(int argc, const char * argv[])
 	int w = (int)CGImageGetWidth(cgImage);
 	int h = (int)CGImageGetHeight(cgImage);
 
-	CGDataRef imageData = CGDataProviderCopyData(CGImageGetDataProvider(cgImage));
-	void *pixels = (void *)CGDataGetBytePtr(imageData);
+	CFDataRef imageData = CGDataProviderCopyData(CGImageGetDataProvider(cgImage));
+	void *pixels = (void *)CFDataGetBytePtr(imageData);
 
 	GLuint bmpTexture;
 	glGenTextures(1,&bmpTexture);
@@ -467,36 +469,36 @@ int main(int argc, const char * argv[])
 		{
 			squareTexcoords[0] = 0.5f;
 			squareTexcoords[1] = 0.5f;
-			squareTexcoords[2] = 0.0f;
+			squareTexcoords[2] = 1.0f;
 			squareTexcoords[3] = 0.5f;
-			squareTexcoords[4] = 0.0f;
-			squareTexcoords[5] = 0.0f;
+			squareTexcoords[4] = 1.0f;
+			squareTexcoords[5] = 1.0f;
 			squareTexcoords[6] = 0.5f;
-			squareTexcoords[7] = 0.0f;
+			squareTexcoords[7] = 1.0f;
 		}
 
 		else if (iTweak_Smiley_Flag == 2)
 		{
-			squareTexcoords[0] = 2.0f;
-			squareTexcoords[1] = 2.0f;
-			squareTexcoords[2] = 0.0f;
-			squareTexcoords[3] = 2.0f;
-			squareTexcoords[4] = 0.0f;
-			squareTexcoords[5] = 0.0f;
-			squareTexcoords[6] = 2.0f;
-			squareTexcoords[7] = 0.0f;
+			squareTexcoords[0] = 0.0f;
+			squareTexcoords[1] = 0.0f;
+			squareTexcoords[2] = 2.0f;
+			squareTexcoords[3] = 0.0f;
+			squareTexcoords[4] = 2.0f;
+			squareTexcoords[5] = 2.0f;
+			squareTexcoords[6] = 0.0f;
+			squareTexcoords[7] = 2.0f;
 		}
 		
 		else if (iTweak_Smiley_Flag == 3)
 		{
-			squareTexcoords[0] = 1.0f;
-			squareTexcoords[1] = 1.0f;
-			squareTexcoords[2] = 0.0f;
-			squareTexcoords[3] = 1.0f;
-			squareTexcoords[4] = 0.0f;
-			squareTexcoords[5] = 0.0f;
-			squareTexcoords[6] = 1.0f;
-			squareTexcoords[7] = 0.0f;
+			squareTexcoords[0] = 0.0f;
+			squareTexcoords[1] = 0.0f;
+			squareTexcoords[2] = 1.0f;
+			squareTexcoords[3] = 0.0f;
+			squareTexcoords[4] = 1.0f;
+			squareTexcoords[5] = 1.0f;
+			squareTexcoords[6] = 0.0f;
+			squareTexcoords[7] = 1.0f;
 		}
 
 		else if (iTweak_Smiley_Flag == 4)
@@ -520,8 +522,8 @@ int main(int argc, const char * argv[])
 		glUniform1i(texture_sampler_uniform,0);
 		glUniform1i(tweak_flag_uniform,0);
 	}
-
-	glUniform1i(tweak_flag_uniform,1);
+	else
+		glUniform1i(tweak_flag_uniform,1);
 
 	glBindVertexArray(vao_square);
 
