@@ -22,7 +22,7 @@
         [singleTapGestureRecognizer setDelegate:self];
         [self addGestureRecognizer:singleTapGestureRecognizer];
 
-        UITapGestureRecognizer *doubleTapGestureRecognizer=[[UITapGestureRecognizer alloc]initWithTarget:self alloc:@selector(onDoubleTap")];
+        UITapGestureRecognizer *doubleTapGestureRecognizer=[[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(onDoubleTap:)];
         [doubleTapGestureRecognizer setNumberOfTapsRequired:2];
         [doubleTapGestureRecognizer setNumberOfTouchesRequired:1];
         [doubleTapGestureRecognizer setDelegate:self];

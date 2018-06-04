@@ -32,7 +32,7 @@
     [myView release];
 
     //Add the ViewController's View as SubView to Window
-    [mainWindow addSubView:[mainViewController view]];
+    [mainWindow addSubview:[mainViewController view]];
 
     //Make Window Key Window and Visible
     [mainWindow makeKeyAndVisible];
