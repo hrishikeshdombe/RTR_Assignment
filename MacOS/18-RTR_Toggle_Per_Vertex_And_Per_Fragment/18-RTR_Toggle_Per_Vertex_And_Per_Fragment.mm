@@ -78,7 +78,7 @@ int main(int argc, const char * argv[])
 							 backing:NSBackingStoreBuffered 
 							 defer:NO];
 
-	[window setTitle:@"MacOS : 3D Rotation"];
+	[window setTitle:@"MacOS : Per Fragment Phong"];
 	[window center];
 
 	glView=[[GLView alloc]initWithFrame:win_rect];
@@ -131,7 +131,7 @@ int main(int argc, const char * argv[])
 	GLuint gVbo_Position, gVbo_Normal, gVbo_Elements;
 
 	GLuint gModelMatrixUniform, gViewMatrixUniform, gProjectionMatrixUniform;
-	GLuint gLKeyPressedUniform;
+	GLuint gLKeyPressedUniform,gTKeyPressedUniform;
 
 	GLuint gLaUniform, gLdUniform, gLsUniform;
 	GLuint gLightPositionUniform;
@@ -152,7 +152,7 @@ int main(int argc, const char * argv[])
 
 	BOOL gbLight;
 	BOOL gbIsLKeyPressed;
-
+	BOOL gbIsTKeyPressed;
 
 	GLfloat sphere_vertices[1146];
 	GLfloat sphere_normals[1146];
@@ -241,6 +241,7 @@ int main(int argc, const char * argv[])
 	materialSpecular[3]=1.0f;
 
 	gbIsLKeyPressed=NO;
+	gbIsTKeyPressed = NO;
 
 	mySphere = [[Sphere alloc]init];
 
@@ -289,10 +290,19 @@ int main(int argc, const char * argv[])
 		"uniform mat4 u_view_matrix;" \
 		"uniform mat4 u_projection_matrix;" \
 		"uniform int u_lighting_enabled;" \
+		"uniform int u_toggle_shader;" \
 		"uniform vec4 u_light_position;" \
+		"uniform vec3 u_La;" \
+		"uniform vec3 u_Ld;" \
+		"uniform vec3 u_Ls;" \
+		"uniform vec3 u_Ka;" \
+		"uniform vec3 u_Kd;" \
+		"uniform vec3 u_Ks;" \
+		"uniform float u_material_shininess;" \
 		"out vec3 transformed_normals;" \
 		"out vec3 light_direction;" \
 		"out vec3 viewer_vector;" \
+		"out vec3 phong_ads_color;" \
 		"void main(void)" \
 		"{" \
 		"if(u_lighting_enabled==1)" \
@@ -301,6 +311,18 @@ int main(int argc, const char * argv[])
 		"transformed_normals = mat3(u_view_matrix*u_model_matrix)*vNormal;" \
 		"light_direction = vec3(u_light_position)-eye_coordinates.xyz;" \
 		"viewer_vector = -eye_coordinates.xyz;" \
+		"if(u_toggle_shader == 1)" \
+		"{" \
+		"vec3 normalized_transformed_normals = normalize(transformed_normals);" \
+		"vec3 normalized_viewer_vector = normalize(viewer_vector);" \
+		"vec3 normalized_light_direction = normalize(light_direction);" \
+		"float tn_dot_ld = max(dot(normalized_transformed_normals,normalized_light_direction),0.0);" \
+		"vec3 ambient = u_La * u_Ka;" \
+		"vec3 diffuse = u_Ld * u_Kd * tn_dot_ld;" \
+		"vec3 reflection_vector = reflect(-normalized_light_direction,normalized_transformed_normals);" \
+		"vec3 specular = u_Ls * u_Ks * pow(max(dot(reflection_vector,normalized_viewer_vector),0.0),u_material_shininess);" \
+		"phong_ads_color = ambient + diffuse + specular;" \
+		"}" \
 		"}" \
 		"gl_Position = u_projection_matrix*u_view_matrix*u_model_matrix*vPosition;" \
 		"}";
@@ -341,7 +363,9 @@ int main(int argc, const char * argv[])
 		"in vec3 transformed_normals;" \
 		"in vec3 light_direction;" \
 		"in vec3 viewer_vector;" \
+		"in vec3 phong_ads_color;" \
 		"out vec4 FragColor;" \
+		"vec3 phong_ads_color_fragment;" \
 		"uniform vec3 u_La;" \
 		"uniform vec3 u_Ld;" \
 		"uniform vec3 u_Ls;" \
@@ -350,10 +374,12 @@ int main(int argc, const char * argv[])
 		"uniform vec3 u_Ks;" \
 		"uniform float u_material_shininess;" \
 		"uniform int u_lighting_enabled;" \
+		"uniform int u_toggle_shader;" \
 		"void main(void)" \
 		"{" \
-		"vec3 phong_ads_color;" \
 		"if(u_lighting_enabled == 1)" \
+		"{" \
+		"if(u_toggle_shader == 0)" \
 		"{" \
 		"vec3 normalized_transformed_normals = normalize(transformed_normals);" \
 		"vec3 normalized_light_direction = normalize(light_direction);" \
@@ -363,13 +389,19 @@ int main(int argc, const char * argv[])
 		"vec3 diffuse = u_Ld * u_Kd * tn_dot_ld;" \
 		"vec3 reflection_vector = reflect(-normalized_light_direction,normalized_transformed_normals);" \
 		"vec3 specular = u_Ls * u_Ks * pow(max(dot(reflection_vector,normalized_viewer_vector),0.0),u_material_shininess);" \
-		"phong_ads_color = ambient + diffuse + specular;" \
+		"phong_ads_color_fragment = ambient + diffuse + specular;" \
+		"FragColor = vec4(phong_ads_color_fragment,1.0);" \
 		"}" \
 		"else" \
 		"{" \
-		"phong_ads_color = vec3(1.0f,1.0f,1.0f);" \
+		"phong_ads_color_fragment = phong_ads_color;" \
 		"}" \
-		"FragColor = vec4(phong_ads_color,1.0);" \
+		"}" \
+		"else" \
+		"{" \
+		"phong_ads_color_fragment = vec3(1.0f,1.0f,1.0f);" \
+		"}" \
+		"FragColor = vec4(phong_ads_color_fragment,1.0);" \
 		"}";
 
 	glShaderSource(gFragmentShaderObject, 1, (const GLchar **)&fragmentShaderSourceCode, NULL);
@@ -446,6 +478,8 @@ int main(int argc, const char * argv[])
 	gKsUniform = glGetUniformLocation(gShaderProgramObject, "u_Ks");
 
 	gMaterialShininessUniform = glGetUniformLocation(gShaderProgramObject, "u_material_shininess");
+
+	gTKeyPressedUniform = glGetUniformLocation(gShaderProgramObject, "u_toggle_shader");
 
 	/*****************VAO For Cube*****************/
 	glGenVertexArrays(1, &gVao_Sphere);
@@ -533,9 +567,14 @@ int main(int argc, const char * argv[])
 	//Use Shader Program Object
 	glUseProgram(gShaderProgramObject);
 
-	if (gbLight == true)
+	if (gbLight == YES)
 	{
 		glUniform1i(gLKeyPressedUniform, 1);
+
+		if (gbIsTKeyPressed == YES)
+			glUniform1i(gTKeyPressedUniform, 1);
+		else
+			glUniform1i(gTKeyPressedUniform, 0);
 
 		glUniform3fv(gLaUniform, 1, lightAmbient);
 		glUniform3fv(gLdUniform, 1, lightDiffuse);
@@ -615,6 +654,14 @@ int main(int argc, const char * argv[])
 				gbLight = NO;
 				gbIsLKeyPressed = NO;
 			}
+			break;
+
+		case 'T':
+		case 't':
+			if(gbIsTKeyPressed==NO)
+				gbIsTKeyPressed=YES;
+			else
+				gbIsTKeyPressed=NO;
 			break;	
 		
 		default:

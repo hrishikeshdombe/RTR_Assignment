@@ -5,7 +5,8 @@
 //  Created by Samarth Mabrukar on 23/06/18.
 //
 
-#import "Sphere.h"
+@interface Sphere:NSObject
+@end
 
 @implementation Sphere
 {
