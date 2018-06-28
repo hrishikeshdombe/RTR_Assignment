@@ -742,10 +742,6 @@ void display(void)
 
 	modelMatrix = translate(0.0f, 0.0f, -4.0f);
 
-	scaleMatrix = scale((GLfloat)giHeight/(GLfloat)giWidth, 1.0f, 1.0f);
-
-	//modelMatrix = modelMatrix * scaleMatrix;
-
 	glUniformMatrix4fv(gModelMatrixUniform, 1, GL_FALSE, modelMatrix);
 
 	glUniformMatrix4fv(gViewMatrixUniform, 1, GL_FALSE, viewMatrix);

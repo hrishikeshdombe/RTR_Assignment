@@ -271,8 +271,14 @@ int main(int argc, const char * argv[])
 
 
 	BOOL gbLight;
+	BOOL gbAnimate;
 	BOOL gbIsLKeyPressed;
+	BOOL gbIsAKeyPressed;
+	BOOL gbIsXKeyPressed;
+	BOOL gbIsYKeyPressed;
+	BOOL gbIsZKeyPressed;
 
+	int giHeight, giWidth;
 
 	GLfloat sphere_vertices[1146];
 	GLfloat sphere_normals[1146];
@@ -321,6 +327,12 @@ int main(int argc, const char * argv[])
 	}
 
 	gbLight = NO;
+	gbAnimate = NO;
+	gbIsLKeyPressed = NO;
+	gbIsXKeyPressed = NO;
+	gbIsYKeyPressed = NO;
+	gbIsZKeyPressed = NO;
+
 	lightAmbient[0]=0.0f;
 	lightAmbient[1]=0.0f;
 	lightAmbient[2]=0.0f;
@@ -359,139 +371,414 @@ int main(int argc, const char * argv[])
 	materialSpecular[2]=1.0f;
 	materialSpecular[3]=1.0f;
 
-	material_ambient_1[0]=;
-	material_ambient_1[1]=;
-	material_ambient_1[2]=;
-	material_ambient_1[3]=;
+	material_ambient_1[0]=0.0215f;
+	material_ambient_1[1]=0.1745f;
+	material_ambient_1[2]=0.0215f;
+	material_ambient_1[3]=1.0f;
 
-	material_diffuse_1[0]=;
-	material_diffuse_1[1]=;
-	material_diffuse_1[2]=;
-	material_diffuse_1[3]=;
+	material_diffuse_1[0]=0.07568f;
+	material_diffuse_1[1]=0.61424f;
+	material_diffuse_1[2]=0.07568f;
+	material_diffuse_1[3]=1.0f;
 
-	material_specular_1[0]=;
-	material_specular_1[1]=; 
-	material_specular_1[2]=; 
-	material_specular_1[3]=;  
+	material_specular_1[0]=0.633f;
+	material_specular_1[1]=0.727811f; 
+	material_specular_1[2]=0.633f; 
+	material_specular_1[3]=1.0f;  
 	
-	material_shininess_1=;
+	material_shininess_1=0.6f * 128.0f;
 
-	material_ambient_2[4];
-	material_diffuse_2[4];
-	material_specular_2[4]; 
-	material_shininess_2;
+	material_ambient_2[0]=0.135f;
+	material_ambient_2[1]=0.2225f;
+	material_ambient_2[2]=0.1575f;
+	material_ambient_2[3]=1.0f;
 
-	material_ambient_3[4];
-	material_diffuse_3[4];
-	material_specular_3[4];
-	material_shininess_3;
+	material_diffuse_2[0]=0.54f;
+	material_diffuse_2[1]=0.89f;
+	material_diffuse_2[2]=0.63f;
+	material_diffuse_2[3]=1.0f;
 
-	material_ambient_4[4];
-	material_diffuse_4[4];
-	material_specular_4[4]; 
-	material_shininess_4;
+	material_specular_2[0]=0.316228f;
+	material_specular_2[1]=0.316228f; 
+	material_specular_2[2]=0.316228f; 
+	material_specular_2[3]=1.0f;  
+	
+	material_shininess_2=0.1f * 128.0f;
 
-	material_ambient_5[4];
-	material_diffuse_5[4];
-	material_specular_5[4]; 
-	material_shininess_5;
+	material_ambient_3[0]=0.05375f;
+	material_ambient_3[1]=0.05f;
+	material_ambient_3[2]=0.06625f;
+	material_ambient_3[3]=1.0f;
 
-	material_ambient_6[4];
-	material_diffuse_6[4];
-	material_specular_6[4];
-	material_shininess_6;
+	material_diffuse_3[0]=0.18275f;
+	material_diffuse_3[1]=0.17f;
+	material_diffuse_3[2]=0.22525f;
+	material_diffuse_3[3]=1.0f;
 
-	material_ambient_7[4];
-	material_diffuse_7[4];
-	material_specular_7[4]; 
-	material_shininess_7;
+	material_specular_3[0]=0.332741f;
+	material_specular_3[1]=0.328634f; 
+	material_specular_3[2]=0.346435f; 
+	material_specular_3[3]=1.0f;  
+	
+	material_shininess_3=0.3f * 128.0f;
 
-	material_ambient_8[4];
-	material_diffuse_8[4];
-	material_specular_8[4];
-	material_shininess_8;
+	material_ambient_4[0]=0.25f;
+	material_ambient_4[1]=0.20725f;
+	material_ambient_4[2]=0.20725f;
+	material_ambient_4[3]=1.0f;
 
-	material_ambient_9[4];
-	material_diffuse_9[4];
-	material_specular_9[4]; 
-	material_shininess_9;
+	material_diffuse_4[0]=1.0f;
+	material_diffuse_4[1]=0.829f;
+	material_diffuse_4[2]=0.829f;
+	material_diffuse_4[3]=1.0f;
 
-	material_ambient_10[4]; 
-	material_diffuse_10[4];
-	material_specular_10[4];
-	material_shininess_10; 
+	material_specular_4[0]=0.296648f;
+	material_specular_4[1]=0.296648f; 
+	material_specular_4[2]=0.296648f; 
+	material_specular_4[3]=1.0f;  
+	
+	material_shininess_4=0.088f * 128.0f;
 
-	material_ambient_11[4]; 
-	material_diffuse_11[4]; 
-	material_specular_11[4];
-	material_shininess_11; 
+	material_ambient_5[0]=0.1745f;
+	material_ambient_5[1]=0.01175f;
+	material_ambient_5[2]=0.01175f;
+	material_ambient_5[3]=1.0f;
 
-	material_ambient_12[4]; 
-	material_diffuse_12[4]; 
-	material_specular_12[4];
-	material_shininess_12; 
+	material_diffuse_5[0]=0.61424f;
+	material_diffuse_5[1]=0.04136f;
+	material_diffuse_5[2]=0.04136f;
+	material_diffuse_5[3]=1.0f;
 
-	material_ambient_13[4]; 
-	material_diffuse_13[4]; 
-	material_specular_13[4];
-	material_shininess_13; 
+	material_specular_5[0]=0.727811f;
+	material_specular_5[1]=0.626959f; 
+	material_specular_5[2]=0.626959f; 
+	material_specular_5[3]=1.0f;  
+	
+	material_shininess_5=0.6f * 128.0f;
 
-	material_ambient_14[4]; 
-	material_diffuse_14[4]; 
-	material_specular_14[4];
-	material_shininess_14; 
+	material_ambient_6[0]=0.1f;
+	material_ambient_6[1]=0.18725f;
+	material_ambient_6[2]=0.1745f;
+	material_ambient_6[3]=1.0f;
 
-	material_ambient_15[4]; 
-	material_diffuse_15[4]; 
-	material_specular_15[4];
-	material_shininess_15; 
+	material_diffuse_6[0]=0.396f;
+	material_diffuse_6[1]=0.74151f;
+	material_diffuse_6[2]=0.69102f;
+	material_diffuse_6[3]=1.0f;
 
-	material_ambient_16[4]; 
-	material_diffuse_16[4]; 
-	material_specular_16[4];
-	material_shininess_16; 
+	material_specular_6[0]=0.297254f;
+	material_specular_6[1]=0.30829f; 
+	material_specular_6[2]=0.306678f; 
+	material_specular_6[3]=1.0f;  
+	
+	material_shininess_6=0.1f * 128.0f;
 
-	material_ambient_17[4]; 
-	material_diffuse_17[4]; 
-	material_specular_17[4];
-	material_shininess_17; 
+	material_ambient_7[0]=0.329412f;
+	material_ambient_7[1]=0.223529f;
+	material_ambient_7[2]=0.027451f;
+	material_ambient_7[3]=1.0f;
 
-	material_ambient_18[4]; 
-	material_diffuse_18[4]; 
-	material_specular_18[4];
-	material_shininess_18; 
+	material_diffuse_7[0]=0.780392f;
+	material_diffuse_7[1]=0.568627f;
+	material_diffuse_7[2]=0.113725f;
+	material_diffuse_7[3]=1.0f;
 
-	material_ambient_19[4]; 
-	material_diffuse_19[4]; 
-	material_specular_19[4];
-	material_shininess_19; 
+	material_specular_7[0]=0.992157f;
+	material_specular_7[1]=0.941176f; 
+	material_specular_7[2]=0.807843f; 
+	material_specular_7[3]=1.0f;  
+	
+	material_shininess_7=0.21794872f * 128.0f;
 
-	material_ambient_20[4]; 
-	material_diffuse_20[4]; 
-	material_specular_20[4];
-	material_shininess_20; 
+	material_ambient_8[0]=0.2125f;
+	material_ambient_8[1]=0.1275f;
+	material_ambient_8[2]=0.054f;
+	material_ambient_8[3]=1.0f;
 
-	material_ambient_21[4]; 
-	material_diffuse_21[4]; 
-	material_specular_21[4];
-	material_shininess_21; 
+	material_diffuse_8[0]=0.714f;
+	material_diffuse_8[1]=0.4284f;
+	material_diffuse_8[2]=0.18144f;
+	material_diffuse_8[3]=1.0f;
 
-	material_ambient_22[4]; 
-	material_diffuse_22[4]; 
-	material_specular_22[4];
-	material_shininess_22; 
+	material_specular_8[0]=0.393548f;
+	material_specular_8[1]=0.271906f; 
+	material_specular_8[2]=0.166721f; 
+	material_specular_8[3]=1.0f;  
+	
+	material_shininess_8=0.2f * 128.0f;
 
-	material_ambient_23[4]; 
-	material_diffuse_23[4]; 
-	material_specular_23[4];
-	material_shininess_23;
+	material_ambient_9[0]=0.25f;
+	material_ambient_9[1]=0.25f;
+	material_ambient_9[2]=0.25f;
+	material_ambient_9[3]=1.0f;
 
-	material_ambient_24[4]; 
-	material_diffuse_24[4]; 
-	material_specular_24[4];
-	material_shininess_24; 
+	material_diffuse_9[0]=0.4f;
+	material_diffuse_9[1]=0.4f;
+	material_diffuse_9[2]=0.4f;
+	material_diffuse_9[3]=1.0f;
 
-	gbIsLKeyPressed=NO;
+	material_specular_9[0]=0.774597f;
+	material_specular_9[1]=0.774597f; 
+	material_specular_9[2]=0.774597f; 
+	material_specular_9[3]=1.0f;  
+	
+	material_shininess_9=0.6f * 128.0f;
+
+	material_ambient_10[0]=0.19125f;
+	material_ambient_10[1]=0.0735f;
+	material_ambient_10[2]=0.0225f;
+	material_ambient_10[3]=1.0f;
+
+	material_diffuse_10[0]=0.7038f;
+	material_diffuse_10[1]=0.27048f;
+	material_diffuse_10[2]=0.0828f;
+	material_diffuse_10[3]=1.0f;
+
+	material_specular_10[0]=0.256777f;
+	material_specular_10[1]=0.137622f; 
+	material_specular_10[2]=0.086014f; 
+	material_specular_10[3]=1.0f;  
+	
+	material_shininess_10=0.1f * 128.0f;
+
+	material_ambient_11[0]=0.24725f;
+	material_ambient_11[1]=0.1995f;
+	material_ambient_11[2]=0.0745f;
+	material_ambient_11[3]=1.0f;
+
+	material_diffuse_11[0]=0.75164f;
+	material_diffuse_11[1]=0.60648f;
+	material_diffuse_11[2]=0.22648f;
+	material_diffuse_11[3]=1.0f;
+
+	material_specular_11[0]=0.628281f;
+	material_specular_11[1]=0.555802f; 
+	material_specular_11[2]=0.366065f; 
+	material_specular_11[3]=1.0f;  
+	
+	material_shininess_11=0.4f * 128.0f;
+
+	material_ambient_12[0]=0.19225f;
+	material_ambient_12[1]=0.19225f;
+	material_ambient_12[2]=0.19225f;
+	material_ambient_12[3]=1.0f;
+
+	material_diffuse_12[0]=0.50754;
+	material_diffuse_12[1]=0.50754;
+	material_diffuse_12[2]=0.50754;
+	material_diffuse_12[3]=1.0f;
+
+	material_specular_12[0]=0.508273;
+	material_specular_12[1]=0.508273; 
+	material_specular_12[2]=0.508273; 
+	material_specular_12[3]=1.0f;  
+	
+	material_shininess_12=0.4f * 128.0f;
+
+	material_ambient_13[0]=0.0f;
+	material_ambient_13[1]=0.0f;
+	material_ambient_13[2]=0.0f;
+	material_ambient_13[3]=1.0f;
+
+	material_diffuse_13[0]=0.01f;
+	material_diffuse_13[1]=0.01f;
+	material_diffuse_13[2]=0.01f;
+	material_diffuse_13[3]=1.0f;
+
+	material_specular_13[0]=0.5f;
+	material_specular_13[1]=0.5f; 
+	material_specular_13[2]=0.5f; 
+	material_specular_13[3]=1.0f;  
+	
+	material_shininess_13=0.25f * 128.0f;
+
+	material_ambient_14[0]=0.0f;
+	material_ambient_14[1]=0.1f;
+	material_ambient_14[2]=0.06f;
+	material_ambient_14[3]=1.0f;
+
+	material_diffuse_14[0]=0.0f;
+	material_diffuse_14[1]=0.50980392f;
+	material_diffuse_14[2]=0.50980392f;
+	material_diffuse_14[3]=1.0f;
+
+	material_specular_14[0]=0.50196078f;
+	material_specular_14[1]=0.50196078f; 
+	material_specular_14[2]=0.50196078f; 
+	material_specular_14[3]=1.0f;  
+	
+	material_shininess_14=0.25f * 128.0f;
+
+	material_ambient_15[0]=0.0f;
+	material_ambient_15[1]=0.0f;
+	material_ambient_15[2]=0.0f;
+	material_ambient_15[3]=1.0f;
+
+	material_diffuse_15[0]=0.1f;
+	material_diffuse_15[1]=0.35f;
+	material_diffuse_15[2]=0.1f;
+	material_diffuse_15[3]=1.0f;
+
+	material_specular_15[0]=0.45f;
+	material_specular_15[1]=0.55f; 
+	material_specular_15[2]=0.45f; 
+	material_specular_15[3]=1.0f;  
+	
+	material_shininess_15=0.25f * 128.0f;
+
+	material_ambient_16[0]=0.0f;
+	material_ambient_16[1]=0.0f;
+	material_ambient_16[2]=0.0f;
+	material_ambient_16[3]=1.0f;
+
+	material_diffuse_16[0]=0.5f;
+	material_diffuse_16[1]=0.0f;
+	material_diffuse_16[2]=0.0f;
+	material_diffuse_16[3]=1.0f;
+
+	material_specular_16[0]=0.7f;
+	material_specular_16[1]=0.6f; 
+	material_specular_16[2]=0.6f; 
+	material_specular_16[3]=1.0f;  
+	
+	material_shininess_16=0.25f * 128.0f;
+
+	material_ambient_17[0]=0.0f;
+	material_ambient_17[1]=0.0f;
+	material_ambient_17[2]=0.0f;
+	material_ambient_17[3]=1.0f;
+
+	material_diffuse_17[0]=0.55f;
+	material_diffuse_17[1]=0.55f;
+	material_diffuse_17[2]=0.55f;
+	material_diffuse_17[3]=1.0f;
+
+	material_specular_17[0]=0.70f;
+	material_specular_17[1]=0.70f; 
+	material_specular_17[2]=0.70f; 
+	material_specular_17[3]=1.0f;  
+	
+	material_shininess_17=0.25f * 128.0f;
+
+	material_ambient_18[0]=0.0f;
+	material_ambient_18[1]=0.0f;
+	material_ambient_18[2]=0.0f;
+	material_ambient_18[3]=1.0f;
+
+	material_diffuse_18[0]=0.5f;
+	material_diffuse_18[1]=0.5f;
+	material_diffuse_18[2]=0.0f;
+	material_diffuse_18[3]=1.0f;
+
+	material_specular_18[0]=0.6f;
+	material_specular_18[1]=0.6f; 
+	material_specular_18[2]=0.5f; 
+	material_specular_18[3]=1.0f;  
+	
+	material_shininess_18=0.25f * 128.0f;
+
+	material_ambient_19[0]=0.02f;
+	material_ambient_19[1]=0.02f;
+	material_ambient_19[2]=0.02f;
+	material_ambient_19[3]=1.0f;
+
+	material_diffuse_19[0]=0.1f;
+	material_diffuse_19[1]=0.1f;
+	material_diffuse_19[2]=0.1f;
+	material_diffuse_19[3]=1.0f;
+
+	material_specular_19[0]=0.4f;
+	material_specular_19[1]=0.4f; 
+	material_specular_19[2]=0.4f; 
+	material_specular_19[3]=1.0f;  
+	
+	material_shininess_19=0.078125f * 128.0f;
+
+	material_ambient_20[0]=0.0f;
+	material_ambient_20[1]=0.05f;
+	material_ambient_20[2]=0.05f;
+	material_ambient_20[3]=1.0f;
+
+	material_diffuse_20[0]=0.4f;
+	material_diffuse_20[1]=0.5f;
+	material_diffuse_20[2]=0.5f;
+	material_diffuse_20[3]=1.0f;
+
+	material_specular_20[0]=0.04f;
+	material_specular_20[1]=0.7f; 
+	material_specular_20[2]=0.7f; 
+	material_specular_20[3]=1.0f;  
+	
+	material_shininess_20=0.078125f * 128.0f;
+
+	material_ambient_21[0]=0.0f;
+	material_ambient_21[1]=0.05f;
+	material_ambient_21[2]=0.0f;
+	material_ambient_21[3]=1.0f;
+
+	material_diffuse_21[0]=0.4f;
+	material_diffuse_21[1]=0.5f;
+	material_diffuse_21[2]=0.4f;
+	material_diffuse_21[3]=1.0f;
+
+	material_specular_21[0]=0.04f;
+	material_specular_21[1]=0.7f; 
+	material_specular_21[2]=0.04f; 
+	material_specular_21[3]=1.0f;  
+	
+	material_shininess_21=0.078125f * 128.0f;
+
+	material_ambient_22[0]=0.05f;
+	material_ambient_22[1]=0.0f;
+	material_ambient_22[2]=0.0f;
+	material_ambient_22[3]=1.0f;
+
+	material_diffuse_22[0]=0.5f;
+	material_diffuse_22[1]=0.4f;
+	material_diffuse_22[2]=0.4f;
+	material_diffuse_22[3]=1.0f;
+
+	material_specular_22[0]=0.7f;
+	material_specular_22[1]=0.04f; 
+	material_specular_22[2]=0.04f; 
+	material_specular_22[3]=1.0f;  
+	
+	material_shininess_22=0.078125f * 128.0f;
+
+	material_ambient_23[0]=0.05f;
+	material_ambient_23[1]=0.05f;
+	material_ambient_23[2]=0.05f;
+	material_ambient_23[3]=1.0f;
+
+	material_diffuse_23[0]=0.5f;
+	material_diffuse_23[1]=0.5f;
+	material_diffuse_23[2]=0.5f;
+	material_diffuse_23[3]=1.0f;
+
+	material_specular_23[0]=0.7f;
+	material_specular_23[1]=0.7f; 
+	material_specular_23[2]=0.7f; 
+	material_specular_23[3]=1.0f;  
+	
+	material_shininess_23=0.078125f * 128.0f;
+
+	material_ambient_24[0]=0.05f;
+	material_ambient_24[1]=0.05f;
+	material_ambient_24[2]=0.0f;
+	material_ambient_24[3]=1.0f;
+
+	material_diffuse_24[0]=0.5f;
+	material_diffuse_24[1]=0.5f;
+	material_diffuse_24[2]=0.4f;
+	material_diffuse_24[3]=1.0f;
+
+	material_specular_24[0]=0.7f;
+	material_specular_24[1]=0.7f; 
+	material_specular_24[2]=0.04f; 
+	material_specular_24[3]=1.0f;  
+	
+	material_shininess_24=0.078125f * 128.0f;
+
 
 	mySphere = [[Sphere alloc]init];
 
@@ -755,15 +1042,15 @@ int main(int argc, const char * argv[])
 
 	NSRect rect = [self bounds];
 
-	GLfloat width=rect.size.width;
-	GLfloat height=rect.size.height;
+	giWidth=rect.size.width;
+	giHeight=rect.size.height;
 
-	if(height == 0)
-		height=1;
+	if(giHeight == 0)
+		giHeight=1;
 
-	glViewport(0,0,(GLsizei)width,(GLsizei)height);
+	glViewport(0,0,(GLsizei)giWidth,(GLsizei)giHeight);
 
-	gPerspectiveProjectionMatrix = vmath::perspective(45.0f, (GLfloat)width / (GLfloat)height, 0.1f, 100.0f);
+	gPerspectiveProjectionMatrix = vmath::perspective(45.0f, (GLfloat)giWidth / (GLfloat)giHeight, 0.1f, 100.0f);
 
 	CGLUnlockContext((CGLContextObj)[[self openGLContext] CGLContextObj]);	
 }
@@ -775,6 +1062,7 @@ int main(int argc, const char * argv[])
 
 - (void)drawView
 {
+	GLfloat fradius = 10.0f;
 	[[self openGLContext]makeCurrentContext];
 
 	CGLLockContext((CGLContextObj)[[self openGLContext]CGLContextObj]);
@@ -784,19 +1072,39 @@ int main(int argc, const char * argv[])
 	//Use Shader Program Object
 	glUseProgram(gShaderProgramObject);
 
-	if (gbLight == true)
+	if (gbLight == YES)
 	{
+		if (gbIsXKeyPressed == YES)
+		{
+			lightPosition[0] = 0.0f;
+			lightPosition[1] = (GLfloat)sin(gAngle_Sphere)*fradius;
+			lightPosition[2] = (GLfloat)(cos(gAngle_Sphere)*fradius - 2.0f);
+		}
+		else if (gbIsYKeyPressed == YES)
+		{
+			lightPosition[0] = (GLfloat)sin(gAngle_Sphere)*fradius;
+			lightPosition[2] = (GLfloat)(cos(gAngle_Sphere)*fradius - 2.0f);
+			lightPosition[1] = 0.0f;
+		}
+		else if (gbIsZKeyPressed == YES)
+		{
+			lightPosition[0] = (GLfloat)sin(gAngle_Sphere)*fradius;
+			lightPosition[1] = (GLfloat)cos(gAngle_Sphere)*fradius;
+			lightPosition[2] = -2.0f;
+		}
+		else if (gbIsXKeyPressed == NO && gbIsYKeyPressed == NO && gbIsZKeyPressed == NO)
+		{
+			lightPosition[0] = 0.0f;
+			lightPosition[1] = 0.0f;
+			lightPosition[2] = 0.0f;
+		}
+
 		glUniform1i(gLKeyPressedUniform, 1);
 
 		glUniform3fv(gLaUniform, 1, lightAmbient);
 		glUniform3fv(gLdUniform, 1, lightDiffuse);
 		glUniform3fv(gLsUniform, 1, lightSpecular);
 		glUniform4fv(gLightPositionUniform, 1, lightPosition);
-
-		glUniform3fv(gKaUniform, 1, materialAmbient);
-		glUniform3fv(gKdUniform, 1, materialDiffuse);
-		glUniform3fv(gKsUniform, 1, materialSpecular);
-		glUniform1f(gMaterialShininessUniform, materialShininess);
 	}
 	else
 	{
@@ -806,7 +1114,7 @@ int main(int argc, const char * argv[])
 	vmath::mat4 modelMatrix = vmath::mat4::identity();
 	vmath::mat4 viewMatrix = vmath::mat4::identity();
 
-	modelMatrix = vmath::translate(0.0f, 0.0f, -2.0f);
+	modelMatrix = vmath::translate(0.0f, 0.0f, -4.0f);
 
 	glUniformMatrix4fv(gModelMatrixUniform, 1, GL_FALSE, modelMatrix);
 
@@ -814,11 +1122,54 @@ int main(int argc, const char * argv[])
 
 	glUniformMatrix4fv(gProjectionMatrixUniform, 1, GL_FALSE, gPerspectiveProjectionMatrix);
 
-	glBindVertexArray(gVao_Sphere);
-
-	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, gVbo_Elements);
-	glDrawElements(GL_TRIANGLES, gNumElements, GL_UNSIGNED_SHORT, 0);
-	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, gVbo_Elements);
+	glViewport(0, giHeight * 5 / 6 - 20, (GLsizei)giWidth / 4, (GLsizei)giHeight / 4);
+	[self Draw_Sphere_1];
+	glViewport(0, giHeight * 4 / 6 - 20, (GLsizei)giWidth / 4, (GLsizei)giHeight / 4);
+	[self Draw_Sphere_2];
+	glViewport(0, giHeight * 3 / 6 - 20, (GLsizei)giWidth / 4, (GLsizei)giHeight / 4);
+	[self Draw_Sphere_3];
+	glViewport(0, giHeight * 2 / 6 - 20, (GLsizei)giWidth / 4, (GLsizei)giHeight / 4);
+	[self Draw_Sphere_4];
+	glViewport(0, giHeight * 1 / 6 - 20, (GLsizei)giWidth / 4, (GLsizei)giHeight / 4);
+	[self Draw_Sphere_5];
+	glViewport(0, 0 - 20, (GLsizei)giWidth / 4, (GLsizei)giHeight / 4);
+	[self Draw_Sphere_6];
+	glViewport(giWidth / 4, giHeight * 5 / 6 - 20, (GLsizei)giWidth / 4, (GLsizei)giHeight / 4);
+	[self Draw_Sphere_7];
+	glViewport(giWidth / 4, giHeight * 4 / 6 - 20, (GLsizei)giWidth / 4, (GLsizei)giHeight / 4);
+	[self Draw_Sphere_8];
+	glViewport(giWidth / 4, giHeight * 3 / 6 - 20, (GLsizei)giWidth / 4, (GLsizei)giHeight / 4);
+	[self Draw_Sphere_9];
+	glViewport(giWidth / 4, giHeight * 2 / 6 - 20, (GLsizei)giWidth / 4, (GLsizei)giHeight / 4);
+	[self Draw_Sphere_10];
+	glViewport(giWidth / 4, giHeight * 1 / 6 - 20, (GLsizei)giWidth / 4, (GLsizei)giHeight / 4);
+	[self Draw_Sphere_11];
+	glViewport(giWidth / 4, 0 - 20, (GLsizei)giWidth / 4, (GLsizei)giHeight / 4);
+	[self Draw_Sphere_12];
+	glViewport(giWidth / 2, giHeight * 5 / 6 - 20, (GLsizei)giWidth / 4, (GLsizei)giHeight / 4);
+	[self Draw_Sphere_13];
+	glViewport(giWidth / 2, giHeight * 4 / 6 - 20, (GLsizei)giWidth / 4, (GLsizei)giHeight / 4);
+	[self Draw_Sphere_14];
+	glViewport(giWidth / 2, giHeight * 3 / 6 - 20, (GLsizei)giWidth / 4, (GLsizei)giHeight / 4);
+	[self Draw_Sphere_15];
+	glViewport(giWidth / 2, giHeight * 2 / 6 - 20, (GLsizei)giWidth / 4, (GLsizei)giHeight / 4);
+	[self Draw_Sphere_16];
+	glViewport(giWidth / 2, giHeight * 1 / 6 - 20, (GLsizei)giWidth / 4, (GLsizei)giHeight / 4);
+	[self Draw_Sphere_17];
+	glViewport(giWidth / 2, 0 - 20, (GLsizei)giWidth / 4, (GLsizei)giHeight / 4);
+	[self Draw_Sphere_18];
+	glViewport((giWidth /2) + (giWidth /4), giHeight * 5 / 6 - 20, (GLsizei)giWidth / 4, (GLsizei)giHeight / 4);
+	[self Draw_Sphere_19];
+	glViewport((giWidth / 2) + (giWidth / 4), giHeight * 4 / 6 - 20, (GLsizei)giWidth / 4, (GLsizei)giHeight / 4);
+	[self Draw_Sphere_20];
+	glViewport((giWidth / 2) + (giWidth / 4), giHeight * 3 / 6 - 20, (GLsizei)giWidth / 4, (GLsizei)giHeight / 4);
+	[self Draw_Sphere_21];
+	glViewport((giWidth / 2) + (giWidth / 4), giHeight * 2 / 6 - 20, (GLsizei)giWidth / 4, (GLsizei)giHeight / 4);
+	[self Draw_Sphere_22];
+	glViewport((giWidth / 2) + (giWidth / 4), giHeight * 1 / 6 - 20, (GLsizei)giWidth / 4, (GLsizei)giHeight / 4);
+	[self Draw_Sphere_23];
+	glViewport((giWidth / 2) + (giWidth / 4), 0 - 20, (GLsizei)giWidth / 4, (GLsizei)giHeight / 4);
+	[self Draw_Sphere_24];
 
 	glBindVertexArray(0);
 
@@ -828,9 +1179,422 @@ int main(int argc, const char * argv[])
 	CGLFlushDrawable((CGLContextObj)[[self openGLContext]CGLContextObj]);
 	CGLUnlockContext((CGLContextObj)[[self openGLContext]CGLContextObj]);
 
-	gAngle_Sphere = gAngle_Sphere + 0.8f;
-	if(gAngle_Sphere >= 360.0f)
-		gAngle_Sphere = gAngle_Sphere - 360.0f;		
+	if(gbIsAKeyPressed == YES)
+	{
+		gAngle_Sphere = gAngle_Sphere + 0.04f;
+		if(gAngle_Sphere >= 360.0f)
+			gAngle_Sphere = gAngle_Sphere - 360.0f;	
+	}	
+}
+
+-(void) Draw_Sphere_1
+{
+	if (gbLight == YES)
+	{
+		glUniform3fv(gKaUniform, 1, material_ambient_1);
+		glUniform3fv(gKdUniform, 1, material_diffuse_1);
+		glUniform3fv(gKsUniform, 1, material_specular_1);
+		glUniform1f(gMaterialShininessUniform, material_shininess_1);
+	}
+
+	glBindVertexArray(gVao_Sphere);
+
+	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, gVbo_Elements);
+	glDrawElements(GL_TRIANGLES, gNumElements, GL_UNSIGNED_SHORT, 0);
+	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, gVbo_Elements);
+}
+
+-(void) Draw_Sphere_2
+{
+	if (gbLight == YES)
+	{
+		glUniform3fv(gKaUniform, 1, material_ambient_2);
+		glUniform3fv(gKdUniform, 1, material_diffuse_2);
+		glUniform3fv(gKsUniform, 1, material_specular_2);
+		glUniform1f(gMaterialShininessUniform, material_shininess_2);
+	}
+
+	glBindVertexArray(gVao_Sphere);
+
+	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, gVbo_Elements);
+	glDrawElements(GL_TRIANGLES, gNumElements, GL_UNSIGNED_SHORT, 0);
+	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, gVbo_Elements);
+}
+
+-(void) Draw_Sphere_3
+{
+	if (gbLight == YES)
+	{
+		glUniform3fv(gKaUniform, 1, material_ambient_3);
+		glUniform3fv(gKdUniform, 1, material_diffuse_3);
+		glUniform3fv(gKsUniform, 1, material_specular_3);
+		glUniform1f(gMaterialShininessUniform, material_shininess_3);
+	}
+
+	glBindVertexArray(gVao_Sphere);
+
+	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, gVbo_Elements);
+	glDrawElements(GL_TRIANGLES, gNumElements, GL_UNSIGNED_SHORT, 0);
+	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, gVbo_Elements);
+}
+
+-(void) Draw_Sphere_4
+{
+	if (gbLight == YES)
+	{
+		glUniform3fv(gKaUniform, 1, material_ambient_4);
+		glUniform3fv(gKdUniform, 1, material_diffuse_4);
+		glUniform3fv(gKsUniform, 1, material_specular_4);
+		glUniform1f(gMaterialShininessUniform, material_shininess_4);
+	}
+
+	glBindVertexArray(gVao_Sphere);
+
+	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, gVbo_Elements);
+	glDrawElements(GL_TRIANGLES, gNumElements, GL_UNSIGNED_SHORT, 0);
+	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, gVbo_Elements);
+}
+
+-(void) Draw_Sphere_5
+{
+	if (gbLight == YES)
+	{
+		glUniform3fv(gKaUniform, 1, material_ambient_5);
+		glUniform3fv(gKdUniform, 1, material_diffuse_5);
+		glUniform3fv(gKsUniform, 1, material_specular_5);
+		glUniform1f(gMaterialShininessUniform, material_shininess_5);
+	}
+
+	glBindVertexArray(gVao_Sphere);
+
+	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, gVbo_Elements);
+	glDrawElements(GL_TRIANGLES, gNumElements, GL_UNSIGNED_SHORT, 0);
+	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, gVbo_Elements);
+}
+
+-(void) Draw_Sphere_6
+{
+	if (gbLight == YES)
+	{
+		glUniform3fv(gKaUniform, 1, material_ambient_6);
+		glUniform3fv(gKdUniform, 1, material_diffuse_6);
+		glUniform3fv(gKsUniform, 1, material_specular_6);
+		glUniform1f(gMaterialShininessUniform, material_shininess_6);
+	}
+
+	glBindVertexArray(gVao_Sphere);
+
+	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, gVbo_Elements);
+	glDrawElements(GL_TRIANGLES, gNumElements, GL_UNSIGNED_SHORT, 0);
+	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, gVbo_Elements);
+}
+
+-(void) Draw_Sphere_7
+{
+	if (gbLight == YES)
+	{
+		glUniform3fv(gKaUniform, 1, material_ambient_7);
+		glUniform3fv(gKdUniform, 1, material_diffuse_7);
+		glUniform3fv(gKsUniform, 1, material_specular_7);
+		glUniform1f(gMaterialShininessUniform, material_shininess_7);
+	}
+
+	glBindVertexArray(gVao_Sphere);
+
+	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, gVbo_Elements);
+	glDrawElements(GL_TRIANGLES, gNumElements, GL_UNSIGNED_SHORT, 0);
+	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, gVbo_Elements);
+}
+
+-(void) Draw_Sphere_8
+{
+	if (gbLight == YES)
+	{
+		glUniform3fv(gKaUniform, 1, material_ambient_8);
+		glUniform3fv(gKdUniform, 1, material_diffuse_8);
+		glUniform3fv(gKsUniform, 1, material_specular_8);
+		glUniform1f(gMaterialShininessUniform, material_shininess_8);
+	}
+
+	glBindVertexArray(gVao_Sphere);
+
+	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, gVbo_Elements);
+	glDrawElements(GL_TRIANGLES, gNumElements, GL_UNSIGNED_SHORT, 0);
+	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, gVbo_Elements);
+}
+
+-(void) Draw_Sphere_9
+{
+	if (gbLight == YES)
+	{
+		glUniform3fv(gKaUniform, 1, material_ambient_9);
+		glUniform3fv(gKdUniform, 1, material_diffuse_9);
+		glUniform3fv(gKsUniform, 1, material_specular_9);
+		glUniform1f(gMaterialShininessUniform, material_shininess_9);
+	}
+
+	glBindVertexArray(gVao_Sphere);
+
+	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, gVbo_Elements);
+	glDrawElements(GL_TRIANGLES, gNumElements, GL_UNSIGNED_SHORT, 0);
+	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, gVbo_Elements);
+}
+
+-(void) Draw_Sphere_10
+{
+	if (gbLight == YES)
+	{
+		glUniform3fv(gKaUniform, 1, material_ambient_10);
+		glUniform3fv(gKdUniform, 1, material_diffuse_10);
+		glUniform3fv(gKsUniform, 1, material_specular_10);
+		glUniform1f(gMaterialShininessUniform, material_shininess_10);
+	}
+
+	glBindVertexArray(gVao_Sphere);
+
+	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, gVbo_Elements);
+	glDrawElements(GL_TRIANGLES, gNumElements, GL_UNSIGNED_SHORT, 0);
+	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, gVbo_Elements);
+}
+
+-(void) Draw_Sphere_11
+{
+	if (gbLight == YES)
+	{
+		glUniform3fv(gKaUniform, 1, material_ambient_11);
+		glUniform3fv(gKdUniform, 1, material_diffuse_11);
+		glUniform3fv(gKsUniform, 1, material_specular_11);
+		glUniform1f(gMaterialShininessUniform, material_shininess_11);
+	}
+
+	glBindVertexArray(gVao_Sphere);
+
+	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, gVbo_Elements);
+	glDrawElements(GL_TRIANGLES, gNumElements, GL_UNSIGNED_SHORT, 0);
+	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, gVbo_Elements);
+}
+
+
+-(void) Draw_Sphere_12
+{
+	if (gbLight == YES)
+	{
+		glUniform3fv(gKaUniform, 1, material_ambient_12);
+		glUniform3fv(gKdUniform, 1, material_diffuse_12);
+		glUniform3fv(gKsUniform, 1, material_specular_12);
+		glUniform1f(gMaterialShininessUniform, material_shininess_12);
+	}
+
+	glBindVertexArray(gVao_Sphere);
+
+	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, gVbo_Elements);
+	glDrawElements(GL_TRIANGLES, gNumElements, GL_UNSIGNED_SHORT, 0);
+	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, gVbo_Elements);
+}
+
+-(void) Draw_Sphere_13
+{
+	if (gbLight == YES)
+	{
+		glUniform3fv(gKaUniform, 1, material_ambient_13);
+		glUniform3fv(gKdUniform, 1, material_diffuse_13);
+		glUniform3fv(gKsUniform, 1, material_specular_13);
+		glUniform1f(gMaterialShininessUniform, material_shininess_13);
+	}
+
+	glBindVertexArray(gVao_Sphere);
+
+	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, gVbo_Elements);
+	glDrawElements(GL_TRIANGLES, gNumElements, GL_UNSIGNED_SHORT, 0);
+	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, gVbo_Elements);
+}
+
+-(void) Draw_Sphere_14
+{
+	if (gbLight == YES)
+	{
+		glUniform3fv(gKaUniform, 1, material_ambient_14);
+		glUniform3fv(gKdUniform, 1, material_diffuse_14);
+		glUniform3fv(gKsUniform, 1, material_specular_14);
+		glUniform1f(gMaterialShininessUniform, material_shininess_14);
+	}
+
+	glBindVertexArray(gVao_Sphere);
+
+	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, gVbo_Elements);
+	glDrawElements(GL_TRIANGLES, gNumElements, GL_UNSIGNED_SHORT, 0);
+	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, gVbo_Elements);
+}
+
+
+-(void) Draw_Sphere_15
+{
+	if (gbLight == YES)
+	{
+		glUniform3fv(gKaUniform, 1, material_ambient_15);
+		glUniform3fv(gKdUniform, 1, material_diffuse_15);
+		glUniform3fv(gKsUniform, 1, material_specular_15);
+		glUniform1f(gMaterialShininessUniform, material_shininess_15);
+	}
+
+	glBindVertexArray(gVao_Sphere);
+
+	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, gVbo_Elements);
+	glDrawElements(GL_TRIANGLES, gNumElements, GL_UNSIGNED_SHORT, 0);
+	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, gVbo_Elements);
+}
+
+-(void) Draw_Sphere_16
+{
+	if (gbLight == YES)
+	{
+		glUniform3fv(gKaUniform, 1, material_ambient_16);
+		glUniform3fv(gKdUniform, 1, material_diffuse_16);
+		glUniform3fv(gKsUniform, 1, material_specular_16);
+		glUniform1f(gMaterialShininessUniform, material_shininess_16);
+	}
+
+	glBindVertexArray(gVao_Sphere);
+
+	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, gVbo_Elements);
+	glDrawElements(GL_TRIANGLES, gNumElements, GL_UNSIGNED_SHORT, 0);
+	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, gVbo_Elements);
+}
+
+-(void) Draw_Sphere_17
+{
+	if (gbLight == YES)
+	{
+		glUniform3fv(gKaUniform, 1, material_ambient_17);
+		glUniform3fv(gKdUniform, 1, material_diffuse_17);
+		glUniform3fv(gKsUniform, 1, material_specular_17);
+		glUniform1f(gMaterialShininessUniform, material_shininess_17);
+	}
+
+	glBindVertexArray(gVao_Sphere);
+
+	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, gVbo_Elements);
+	glDrawElements(GL_TRIANGLES, gNumElements, GL_UNSIGNED_SHORT, 0);
+	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, gVbo_Elements);
+}
+
+-(void) Draw_Sphere_18
+{
+	if (gbLight == YES)
+	{
+		glUniform3fv(gKaUniform, 1, material_ambient_18);
+		glUniform3fv(gKdUniform, 1, material_diffuse_18);
+		glUniform3fv(gKsUniform, 1, material_specular_18);
+		glUniform1f(gMaterialShininessUniform, material_shininess_18);
+	}
+
+	glBindVertexArray(gVao_Sphere);
+
+	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, gVbo_Elements);
+	glDrawElements(GL_TRIANGLES, gNumElements, GL_UNSIGNED_SHORT, 0);
+	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, gVbo_Elements);
+}
+
+-(void) Draw_Sphere_19
+{
+	if (gbLight == YES)
+	{
+		glUniform3fv(gKaUniform, 1, material_ambient_19);
+		glUniform3fv(gKdUniform, 1, material_diffuse_19);
+		glUniform3fv(gKsUniform, 1, material_specular_19);
+		glUniform1f(gMaterialShininessUniform, material_shininess_19);
+	}
+
+	glBindVertexArray(gVao_Sphere);
+
+	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, gVbo_Elements);
+	glDrawElements(GL_TRIANGLES, gNumElements, GL_UNSIGNED_SHORT, 0);
+	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, gVbo_Elements);
+}
+
+-(void) Draw_Sphere_20
+{
+	if (gbLight == YES)
+	{
+		glUniform3fv(gKaUniform, 1, material_ambient_20);
+		glUniform3fv(gKdUniform, 1, material_diffuse_20);
+		glUniform3fv(gKsUniform, 1, material_specular_20);
+		glUniform1f(gMaterialShininessUniform, material_shininess_20);
+	}
+
+	glBindVertexArray(gVao_Sphere);
+
+	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, gVbo_Elements);
+	glDrawElements(GL_TRIANGLES, gNumElements, GL_UNSIGNED_SHORT, 0);
+	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, gVbo_Elements);
+}
+
+-(void) Draw_Sphere_21
+{
+	if (gbLight == YES)
+	{
+		glUniform3fv(gKaUniform, 1, material_ambient_21);
+		glUniform3fv(gKdUniform, 1, material_diffuse_21);
+		glUniform3fv(gKsUniform, 1, material_specular_21);
+		glUniform1f(gMaterialShininessUniform, material_shininess_21);
+	}
+
+	glBindVertexArray(gVao_Sphere);
+
+	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, gVbo_Elements);
+	glDrawElements(GL_TRIANGLES, gNumElements, GL_UNSIGNED_SHORT, 0);
+	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, gVbo_Elements);
+}
+
+-(void) Draw_Sphere_22
+{
+	if (gbLight == YES)
+	{
+		glUniform3fv(gKaUniform, 1, material_ambient_22);
+		glUniform3fv(gKdUniform, 1, material_diffuse_22);
+		glUniform3fv(gKsUniform, 1, material_specular_22);
+		glUniform1f(gMaterialShininessUniform, material_shininess_22);
+	}
+
+	glBindVertexArray(gVao_Sphere);
+
+	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, gVbo_Elements);
+	glDrawElements(GL_TRIANGLES, gNumElements, GL_UNSIGNED_SHORT, 0);
+	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, gVbo_Elements);
+}
+
+-(void) Draw_Sphere_23
+{
+	if (gbLight == YES)
+	{
+		glUniform3fv(gKaUniform, 1, material_ambient_23);
+		glUniform3fv(gKdUniform, 1, material_diffuse_23);
+		glUniform3fv(gKsUniform, 1, material_specular_23);
+		glUniform1f(gMaterialShininessUniform, material_shininess_23);
+	}
+
+	glBindVertexArray(gVao_Sphere);
+
+	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, gVbo_Elements);
+	glDrawElements(GL_TRIANGLES, gNumElements, GL_UNSIGNED_SHORT, 0);
+	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, gVbo_Elements);
+}
+
+-(void) Draw_Sphere_24
+{
+	if (gbLight == YES)
+	{
+		glUniform3fv(gKaUniform, 1, material_ambient_24);
+		glUniform3fv(gKdUniform, 1, material_diffuse_24);
+		glUniform3fv(gKsUniform, 1, material_specular_24);
+		glUniform1f(gMaterialShininessUniform, material_shininess_24);
+	}
+
+	glBindVertexArray(gVao_Sphere);
+
+	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, gVbo_Elements);
+	glDrawElements(GL_TRIANGLES, gNumElements, GL_UNSIGNED_SHORT, 0);
+	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, gVbo_Elements);
 }
 
 -(BOOL)acceptsFirstResponder
@@ -866,7 +1630,58 @@ int main(int argc, const char * argv[])
 				gbLight = NO;
 				gbIsLKeyPressed = NO;
 			}
+			break;
+
+		case 'A':
+		case 'a':
+			if (gbIsAKeyPressed == NO)
+			{
+				gbAnimate = YES;
+				gbIsAKeyPressed = YES;
+			}
+			else
+			{
+				gbAnimate = NO;
+				gbIsAKeyPressed = NO;
+			}
 			break;	
+
+		case 'X':
+		case 'x':
+			if (gbIsXKeyPressed == NO)
+			{
+				gbIsXKeyPressed = YES;
+				gbIsYKeyPressed = NO;
+				gbIsZKeyPressed = NO;
+			}
+			else
+				gbIsXKeyPressed = NO;
+			break;
+
+		case 'Y':
+		case 'y':
+			if (gbIsYKeyPressed == NO)
+			{
+				gbIsXKeyPressed = NO;
+				gbIsYKeyPressed = YES;
+				gbIsZKeyPressed = NO;
+			}
+			else
+				gbIsYKeyPressed = NO;
+			break;
+
+		case 'Z':
+		case 'z':
+			if (gbIsZKeyPressed == NO)
+			{
+				gbIsXKeyPressed = NO;
+				gbIsYKeyPressed = NO;
+				gbIsZKeyPressed = YES;
+			}
+			else
+				gbIsZKeyPressed = NO;
+			break;
+			break;			
 		
 		default:
 			break;
