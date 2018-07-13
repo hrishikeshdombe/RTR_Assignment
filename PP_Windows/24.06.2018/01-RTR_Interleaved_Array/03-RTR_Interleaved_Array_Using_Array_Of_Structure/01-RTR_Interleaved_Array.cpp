@@ -2,12 +2,12 @@
 #include<C:\glew\include\GL\glew.h>
 #include<gl/GL.h>
 #include<stdio.h>
-#include"../../Resources/vmath.h"
+#include"vmath.h"
 #include"01-Texture.h"
 
 #pragma comment(lib,"User32.lib")
 #pragma comment(lib,"GDI32.lib")
-#pragma comment(lib,"C:\\glew\\lib\\Release\\Win32\\glew32.lib")
+#pragma comment(lib,"C:\\glew\\lib\\Release\\x64\\glew32.lib")
 #pragma comment(lib,"opengl32.lib")
 
 #define WIN_WIDTH 800
@@ -349,12 +349,12 @@ void initialize(void)
 		"if(u_LKeyPressed == 1)" \
 		"{" \
 		"calculated_color = vec4(diffuse_light,1.0);" \
+		"FragColor = texture_final * calculated_color * vec4(out_color,0.0f);"\
 		"}" \
 		"else" \
 		"{" \
-		"calculated_color = vec4(out_color,0.0f);" \
+		"FragColor = texture_final * vec4(out_color,0.0f);"\
 		"}" \
-		"FragColor = texture_final + calculated_color;"\
 		"}";
 
 	glShaderSource(gFragmentShaderObject, 1, (const GLchar **)&fragmentShaderSourceCode, NULL);
@@ -426,37 +426,45 @@ void initialize(void)
 	gLightPositionUniform = glGetUniformLocation(gShaderProgramObject, "u_light_position");
 	gTexture_sampler_uniform = glGetUniformLocation(gShaderProgramObject, "u_texture0_sampler");
 
-	const GLfloat cubeVCNT[] =
+	struct Properties
 	{
-		1.0f,1.0f,1.0f,1.0f, 0.0f, 0.0f,0.0f,0.0f,1.0f,0.0f,0.0f,
-		-1.0f,1.0f,1.0f,1.0f, 0.0f, 0.0f,0.0f,0.0f,1.0f,1.0f,0.0f,
-		-1.0f,-1.0f,1.0f,1.0f, 0.0f, 0.0f,0.0f,0.0f,1.0f,1.0f,1.0f,
-		1.0f,-1.0f,1.0f,1.0f, 0.0f, 0.0f,0.0f,0.0f,1.0f,0.0f,1.0f,
+		float vertices[3];
+		float color[3];
+		float normals[3];
+		float texrure[2];
+	};
 
-		1.0f,1.0f,-1.0f,0.0f, 1.0f, 0.0f,1.0f,0.0f,0.0f,0.0f,0.0f,
-		1.0f,1.0f,1.0f,0.0f, 1.0f, 0.0f,1.0f,0.0f,0.0f,1.0f,0.0f,
-		1.0f,-1.0f,1.0f,0.0f, 1.0f, 0.0f,1.0f,0.0f,0.0f,1.0f,1.0f,
-		1.0f,-1.0f,-1.0f,0.0f, 1.0f, 0.0f,1.0f,0.0f,0.0f,0.0f,1.0f,
+	Properties cubeVCNT[24] =
+	{
+		{1.0f,1.0f,1.0f,1.0f, 0.0f, 0.0f,0.0f,0.0f,1.0f,0.0f,0.0f},
+		{-1.0f,1.0f,1.0f,1.0f, 0.0f, 0.0f,0.0f,0.0f,1.0f,1.0f,0.0f },
+		{-1.0f,-1.0f,1.0f,1.0f, 0.0f, 0.0f,0.0f,0.0f,1.0f,1.0f,1.0f},
+		{1.0f,-1.0f,1.0f,1.0f, 0.0f, 0.0f,0.0f,0.0f,1.0f,0.0f,1.0f},
 
-		-1.0f,1.0f,-1.0f,0.0f, 0.0f, 1.0f,0.0f,0.0f,-1.0f,0.0f,0.0f,
-		1.0f,1.0f,-1.0f,0.0f, 0.0f, 1.0f,0.0f,0.0f,-1.0f,1.0f,0.0f,
-		1.0f,-1.0f,-1.0f,0.0f, 0.0f, 1.0f,0.0f,0.0f,-1.0f,1.0f,1.0f,
-		-1.0f,-1.0f,-1.0f,0.0f, 0.0f, 1.0f,0.0f,0.0f,-1.0f,0.0f,1.0f,
+		{1.0f,1.0f,-1.0f,0.0f, 1.0f, 0.0f,1.0f,0.0f,0.0f,0.0f,0.0f},
+		{1.0f,1.0f,1.0f,0.0f, 1.0f, 0.0f,1.0f,0.0f,0.0f,1.0f,0.0f},
+		{1.0f,-1.0f,1.0f,0.0f, 1.0f, 0.0f,1.0f,0.0f,0.0f,1.0f,1.0f},
+		{1.0f,-1.0f,-1.0f,0.0f, 1.0f, 0.0f,1.0f,0.0f,0.0f,0.0f,1.0f},
 
-		-1.0f,1.0f,1.0f,1.0f, 0.0f, 1.0f,-1.0f,0.0f,0.0f,0.0f,0.0f,
-		-1.0f,1.0f,-1.0f,1.0f, 0.0f, 1.0f,-1.0f,0.0f,0.0f,1.0f,0.0f,
-		-1.0f,-1.0f,-1.0f,1.0f, 0.0f, 1.0f,-1.0f,0.0f,0.0f,1.0f,1.0f,
-		-1.0f,-1.0f,1.0f,1.0f, 0.0f, 1.0f,-1.0f,0.0f,0.0f,0.0f,1.0f,
+		{-1.0f,1.0f,-1.0f,0.0f, 0.0f, 1.0f,0.0f,0.0f,-1.0f,0.0f,0.0f},
+		{1.0f,1.0f,-1.0f,0.0f, 0.0f, 1.0f,0.0f,0.0f,-1.0f,1.0f,0.0f},
+		{1.0f,-1.0f,-1.0f,0.0f, 0.0f, 1.0f,0.0f,0.0f,-1.0f,1.0f,1.0f},
+		{-1.0f,-1.0f,-1.0f,0.0f, 0.0f, 1.0f,0.0f,0.0f,-1.0f,0.0f,1.0f},
 
-		1.0f,1.0f,-1.0f,1.0f, 1.0f, 0.0f,0.0f,1.0f,0.0f,0.0f,0.0f,
-		-1.0f,1.0f,-1.0f,1.0f, 1.0f, 0.0f,0.0f,1.0f,0.0f,1.0f,0.0f,
-		-1.0f,1.0f,1.0f,1.0f, 1.0f, 0.0f,0.0f,1.0f,0.0f,1.0f,1.0f,
-		1.0f,1.0f,1.0f,1.0f, 1.0f, 0.0f,0.0f,1.0f,0.0f,0.0f,1.0f,
+		{-1.0f,1.0f,1.0f,1.0f, 0.0f, 1.0f,-1.0f,0.0f,0.0f,0.0f,0.0f},
+		{-1.0f,1.0f,-1.0f,1.0f, 0.0f, 1.0f,-1.0f,0.0f,0.0f,1.0f,0.0f},
+		{-1.0f,-1.0f,-1.0f,1.0f, 0.0f, 1.0f,-1.0f,0.0f,0.0f,1.0f,1.0f},
+		{-1.0f,-1.0f,1.0f,1.0f, 0.0f, 1.0f,-1.0f,0.0f,0.0f,0.0f,1.0f},
 
-		1.0f,-1.0f,1.0f,0.0f, 1.0f, 1.0f,0.0f,-1.0f,0.0f,0.0f,0.0f,
-		-1.0f,-1.0f,1.0f,0.0f, 1.0f, 1.0f,0.0f,-1.0f,0.0f,1.0f,0.0f,
-		-1.0f,-1.0f,-1.0f,0.0f, 1.0f, 1.0f,0.0f,-1.0f,0.0f,1.0f,1.0f,
-		1.0f,-1.0f,-1.0f,0.0f, 1.0f, 1.0f,0.0f,-1.0f,0.0f,0.0f,1.0f,
+		{1.0f,1.0f,-1.0f,1.0f, 1.0f, 0.0f,0.0f,1.0f,0.0f,0.0f,0.0f},
+		{-1.0f,1.0f,-1.0f,1.0f, 1.0f, 0.0f,0.0f,1.0f,0.0f,1.0f,0.0f},
+		{-1.0f,1.0f,1.0f,1.0f, 1.0f, 0.0f,0.0f,1.0f,0.0f,1.0f,1.0f},
+		{1.0f,1.0f,1.0f,1.0f, 1.0f, 0.0f,0.0f,1.0f,0.0f,0.0f,1.0f},
+
+		{1.0f,-1.0f,1.0f,0.0f, 1.0f, 1.0f,0.0f,-1.0f,0.0f,0.0f,0.0f},
+		{-1.0f,-1.0f,1.0f,0.0f, 1.0f, 1.0f,0.0f,-1.0f,0.0f,1.0f,0.0f},
+		{-1.0f,-1.0f,-1.0f,0.0f, 1.0f, 1.0f,0.0f,-1.0f,0.0f,1.0f,1.0f},
+		{1.0f,-1.0f,-1.0f,0.0f, 1.0f, 1.0f,0.0f,-1.0f,0.0f,0.0f,1.0f}
 	};
 
 	/*****************VAO For Cube*****************/
