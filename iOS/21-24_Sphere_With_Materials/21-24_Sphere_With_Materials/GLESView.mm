@@ -920,7 +920,7 @@ enum
         //glHint(GL_PERSPECTIVE_CORRECTION_HINT , GL_NICEST);
         //glEnable(GL_CULL_FACE);
         
-        glClearColor(0.0f, 0.0f, 0.0f, 0.0f);
+        glClearColor(0.25f, 0.25f, 0.25f, 0.0f);
         
         gPerspectiveProjectionMatrix = vmath::mat4::identity();
         
@@ -1015,7 +1015,7 @@ enum
     vmath::mat4 modelMatrix = vmath::mat4::identity();
     vmath::mat4 viewMatrix = vmath::mat4::identity();
     
-    modelMatrix = vmath::translate(0.0f, 0.0f, -4.0f);
+    modelMatrix = vmath::translate(0.0f, 0.0f, -2.5f);
     
     glUniformMatrix4fv(gModelMatrixUniform, 1, GL_FALSE, modelMatrix);
     
@@ -1023,53 +1023,53 @@ enum
     
     glUniformMatrix4fv(gProjectionMatrixUniform, 1, GL_FALSE, gPerspectiveProjectionMatrix);
     
-    glViewport(0, giHeight * 5 / 6 - 20, (GLsizei)giWidth / 4, (GLsizei)giHeight / 4);
+    glViewport(0, giHeight * 5 / 6 - 10, (GLsizei)giWidth / 4, (GLsizei)giHeight / 4);
     [self Draw_Sphere_1];
-    glViewport(0, giHeight * 4 / 6 - 20, (GLsizei)giWidth / 4, (GLsizei)giHeight / 4);
+    glViewport(0, giHeight * 4 / 6 - 10, (GLsizei)giWidth / 4, (GLsizei)giHeight / 4);
     [self Draw_Sphere_2];
-    glViewport(0, giHeight * 3 / 6 - 20, (GLsizei)giWidth / 4, (GLsizei)giHeight / 4);
+    glViewport(0, giHeight * 3 / 6 - 10, (GLsizei)giWidth / 4, (GLsizei)giHeight / 4);
     [self Draw_Sphere_3];
-    glViewport(0, giHeight * 2 / 6 - 20, (GLsizei)giWidth / 4, (GLsizei)giHeight / 4);
+    glViewport(0, giHeight * 2 / 6 - 10, (GLsizei)giWidth / 4, (GLsizei)giHeight / 4);
     [self Draw_Sphere_4];
-    glViewport(0, giHeight * 1 / 6 - 20, (GLsizei)giWidth / 4, (GLsizei)giHeight / 4);
+    glViewport(0, giHeight * 1 / 6 - 10, (GLsizei)giWidth / 4, (GLsizei)giHeight / 4);
     [self Draw_Sphere_5];
-    glViewport(0, 0 - 20, (GLsizei)giWidth / 4, (GLsizei)giHeight / 4);
+    glViewport(0, 0 - 10, (GLsizei)giWidth / 4, (GLsizei)giHeight / 4);
     [self Draw_Sphere_6];
-    glViewport(giWidth / 4, giHeight * 5 / 6 - 20, (GLsizei)giWidth / 4, (GLsizei)giHeight / 4);
+    glViewport(giWidth / 4, giHeight * 5 / 6 - 10, (GLsizei)giWidth / 4, (GLsizei)giHeight / 4);
     [self Draw_Sphere_7];
-    glViewport(giWidth / 4, giHeight * 4 / 6 - 20, (GLsizei)giWidth / 4, (GLsizei)giHeight / 4);
+    glViewport(giWidth / 4, giHeight * 4 / 6 - 10, (GLsizei)giWidth / 4, (GLsizei)giHeight / 4);
     [self Draw_Sphere_8];
-    glViewport(giWidth / 4, giHeight * 3 / 6 - 20, (GLsizei)giWidth / 4, (GLsizei)giHeight / 4);
+    glViewport(giWidth / 4, giHeight * 3 / 6 - 10, (GLsizei)giWidth / 4, (GLsizei)giHeight / 4);
     [self Draw_Sphere_9];
-    glViewport(giWidth / 4, giHeight * 2 / 6 - 20, (GLsizei)giWidth / 4, (GLsizei)giHeight / 4);
+    glViewport(giWidth / 4, giHeight * 2 / 6 - 10, (GLsizei)giWidth / 4, (GLsizei)giHeight / 4);
     [self Draw_Sphere_10];
-    glViewport(giWidth / 4, giHeight * 1 / 6 - 20, (GLsizei)giWidth / 4, (GLsizei)giHeight / 4);
+    glViewport(giWidth / 4, giHeight * 1 / 6 - 10, (GLsizei)giWidth / 4, (GLsizei)giHeight / 4);
     [self Draw_Sphere_11];
-    glViewport(giWidth / 4, 0 - 20, (GLsizei)giWidth / 4, (GLsizei)giHeight / 4);
+    glViewport(giWidth / 4, 0 - 10, (GLsizei)giWidth / 4, (GLsizei)giHeight / 4);
     [self Draw_Sphere_12];
-    glViewport(giWidth / 2, giHeight * 5 / 6 - 20, (GLsizei)giWidth / 4, (GLsizei)giHeight / 4);
+    glViewport(giWidth / 2, giHeight * 5 / 6 - 10, (GLsizei)giWidth / 4, (GLsizei)giHeight / 4);
     [self Draw_Sphere_13];
-    glViewport(giWidth / 2, giHeight * 4 / 6 - 20, (GLsizei)giWidth / 4, (GLsizei)giHeight / 4);
+    glViewport(giWidth / 2, giHeight * 4 / 6 - 10, (GLsizei)giWidth / 4, (GLsizei)giHeight / 4);
     [self Draw_Sphere_14];
-    glViewport(giWidth / 2, giHeight * 3 / 6 - 20, (GLsizei)giWidth / 4, (GLsizei)giHeight / 4);
+    glViewport(giWidth / 2, giHeight * 3 / 6 - 10, (GLsizei)giWidth / 4, (GLsizei)giHeight / 4);
     [self Draw_Sphere_15];
-    glViewport(giWidth / 2, giHeight * 2 / 6 - 20, (GLsizei)giWidth / 4, (GLsizei)giHeight / 4);
+    glViewport(giWidth / 2, giHeight * 2 / 6 - 10, (GLsizei)giWidth / 4, (GLsizei)giHeight / 4);
     [self Draw_Sphere_16];
-    glViewport(giWidth / 2, giHeight * 1 / 6 - 20, (GLsizei)giWidth / 4, (GLsizei)giHeight / 4);
+    glViewport(giWidth / 2, giHeight * 1 / 6 - 10, (GLsizei)giWidth / 4, (GLsizei)giHeight / 4);
     [self Draw_Sphere_17];
-    glViewport(giWidth / 2, 0 - 20, (GLsizei)giWidth / 4, (GLsizei)giHeight / 4);
+    glViewport(giWidth / 2, 0 - 10, (GLsizei)giWidth / 4, (GLsizei)giHeight / 4);
     [self Draw_Sphere_18];
-    glViewport((giWidth /2) + (giWidth /4), giHeight * 5 / 6 - 20, (GLsizei)giWidth / 4, (GLsizei)giHeight / 4);
+    glViewport((giWidth /2) + (giWidth /4), giHeight * 5 / 6 - 10, (GLsizei)giWidth / 4, (GLsizei)giHeight / 4);
     [self Draw_Sphere_19];
-    glViewport((giWidth / 2) + (giWidth / 4), giHeight * 4 / 6 - 20, (GLsizei)giWidth / 4, (GLsizei)giHeight / 4);
+    glViewport((giWidth / 2) + (giWidth / 4), giHeight * 4 / 6 - 10, (GLsizei)giWidth / 4, (GLsizei)giHeight / 4);
     [self Draw_Sphere_20];
-    glViewport((giWidth / 2) + (giWidth / 4), giHeight * 3 / 6 - 20, (GLsizei)giWidth / 4, (GLsizei)giHeight / 4);
+    glViewport((giWidth / 2) + (giWidth / 4), giHeight * 3 / 6 - 10, (GLsizei)giWidth / 4, (GLsizei)giHeight / 4);
     [self Draw_Sphere_21];
-    glViewport((giWidth / 2) + (giWidth / 4), giHeight * 2 / 6 - 20, (GLsizei)giWidth / 4, (GLsizei)giHeight / 4);
+    glViewport((giWidth / 2) + (giWidth / 4), giHeight * 2 / 6 - 10, (GLsizei)giWidth / 4, (GLsizei)giHeight / 4);
     [self Draw_Sphere_22];
-    glViewport((giWidth / 2) + (giWidth / 4), giHeight * 1 / 6 - 20, (GLsizei)giWidth / 4, (GLsizei)giHeight / 4);
+    glViewport((giWidth / 2) + (giWidth / 4), giHeight * 1 / 6 - 10, (GLsizei)giWidth / 4, (GLsizei)giHeight / 4);
     [self Draw_Sphere_23];
-    glViewport((giWidth / 2) + (giWidth / 4), 0 - 20, (GLsizei)giWidth / 4, (GLsizei)giHeight / 4);
+    glViewport((giWidth / 2) + (giWidth / 4), 0 - 10, (GLsizei)giWidth / 4, (GLsizei)giHeight / 4);
     [self Draw_Sphere_24];
     
     glBindVertexArray(0);

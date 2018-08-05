@@ -626,7 +626,7 @@ enum
     vmath::mat4 modelMatrix = vmath::mat4::identity();
     vmath::mat4 viewMatrix = vmath::mat4::identity();
     
-    modelMatrix = vmath::translate(0.0f, 0.0f, -2.0f);
+    modelMatrix = vmath::translate(0.0f, 0.0f, -1.5f);
 
     glUniformMatrix4fv(gModelMatrixUniform, 1, GL_FALSE, modelMatrix);
     

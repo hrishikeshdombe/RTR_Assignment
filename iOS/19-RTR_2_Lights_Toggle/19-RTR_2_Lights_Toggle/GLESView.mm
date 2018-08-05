@@ -557,7 +557,7 @@ enum
     vmath::mat4 viewMatrix = vmath::mat4::identity();
     vmath::mat4 rotationMatrix=vmath::mat4::identity();
     
-    modelMatrix = vmath::translate(0.0f, 0.0f, -2.0f);
+    modelMatrix = vmath::translate(0.0f, 0.0f, -1.5f);
     
     rotationMatrix = vmath::rotate(gAngle_Sphere,0.0f,1.0f,0.0f);
     
