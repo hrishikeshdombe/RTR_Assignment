@@ -1,0 +1,1 @@
+cl.exe 01-Tweak_Smiley.cpp /link /NODEFAULTLIB:msvcrt.lib

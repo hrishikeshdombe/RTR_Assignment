@@ -1,0 +1,1 @@
+cl.exe 01-Smiley_Texture.cpp /link /NODEFAULTLIB:msvcrt.lib

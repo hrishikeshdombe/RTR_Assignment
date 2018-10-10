@@ -1,0 +1,1 @@
+cl.exe 01-3D_Texture.cpp /link /NODEFAULTLIB:msvcrt.lib

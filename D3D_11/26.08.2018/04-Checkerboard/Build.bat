@@ -1,0 +1,1 @@
+cl.exe 01-Checkerboard.cpp /link /NODEFAULTLIB:msvcrt.lib
