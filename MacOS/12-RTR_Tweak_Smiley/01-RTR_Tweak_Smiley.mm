@@ -364,7 +364,7 @@ int main(int argc, const char * argv[])
 
 	glDepthFunc(GL_LEQUAL);
 
-	glClearColor(1.0f,1.0f,1.0f,0.0f);
+	glClearColor(0.0f,0.0f,0.0f,0.0f);
 
 	iTweak_Smiley_Flag = 0;
 
