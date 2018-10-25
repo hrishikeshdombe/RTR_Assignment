@@ -14,7 +14,7 @@
 
     float model_vertices[1146];
     float model_normals[1146];
-    float model_textures[764];
+    float model_texture[764];
     float model_elements[2280];
 }
 
@@ -664,8 +664,8 @@
         }
     }
 
-    textures[0][0] = 0.0f;
     textures[0][1] = 0.0f;
+    textures[0][2] = 0.0f;
 
     maxElements = 0;
 	numElements = 0;
@@ -674,7 +674,7 @@
 	return(self);
 }
 
--(void)getSphereVertexDataWithPosition:(float*)spherePositionCoords withNormals:(float*)sphereNormalCoords withTexCoords:(float*)sphereTexCoords andElements:(unsigned short*)sphereElements
+-(void)getSphereVertexDataWithPosition:(float*)spherePositionCoords withNormals:(float*)sphereNormalCoords withTexCoords:(float*)sphereTexCoords withElements:(unsigned short*)sphereElements
 {
 	for (int i = 0; i < 1146; i++)
 		{
